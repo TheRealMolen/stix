@@ -1,0 +1,8 @@
+.vs
+Debug
+dist
+Release
+x64
+./*.dll
+*.VC.db
+*.zip
