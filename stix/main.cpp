@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
@@ -94,7 +95,7 @@ Level levels[] =
     Level("0 1 0 0 "),
     Level("0 120 0 "),
     Level("0 120   0 1 0 2 "),
-    Level("0 0 0  00 1 0 20"),
+    Level("0 0 0  00 1 0 2 "),
 };
 
 uint32_t numlevels = sizeof(levels) / sizeof(levels[0]);
@@ -241,7 +242,7 @@ void update(uint32_t tickdelta)
             //cout << "   play " << currstep;
         }
 
-        cout << endl;
+        //cout << endl;
     }
 
     msg.tick();

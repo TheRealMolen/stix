@@ -3,6 +3,8 @@ Debug
 dist
 Release
 x64
-./*.dll
+*.dll
 *.VC.db
 *.zip
+obj
+bin
