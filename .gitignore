@@ -8,3 +8,5 @@ x64
 *.zip
 obj
 bin
+stix.app
+.vscode

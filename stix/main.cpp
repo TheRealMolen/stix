@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <string>
 #include <SDL/SDL.h>
 #include <SDL/SDL_mixer.h>
 
@@ -313,9 +314,10 @@ int get_step_from_sym(SDL_Keycode sym)
 }
 
 
-bool loadsample(const char* file, int id)
+bool loadsample(const string& path, const char* file, int id)
 {
-    samples[id] = Mix_LoadWAV(file);
+    string fullpath = path + file;
+    samples[id] = Mix_LoadWAV(fullpath.c_str());
     if (!samples[id])
     {
         cout << "couldn't load sample " << file << ": " << Mix_GetError() << endl;
@@ -328,6 +330,18 @@ bool loadsample(const char* file, int id)
 
 int main(int argc, char * argv[])
 {
+    // need to go hunting for our files on mac
+    string datapath;
+
+//#ifdef __OSX__
+    string path(argv[0]);
+    auto slashpos = path.rfind( '/');
+    if( slashpos != string::npos ) {
+        datapath = path.substr(0, slashpos+1);
+        cout << datapath << endl;
+    }
+//#endif
+
     // ---------- the grownup bit ---------------
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0)
     {
@@ -349,7 +363,7 @@ int main(int argc, char * argv[])
     swidth = width * rezmul;
     sheight = height * rezmul;
 
-    if (!init_text())
+    if (!init_text(datapath))
     {
         cout << "no text = no game :/" << endl;
         return -4;
@@ -362,18 +376,18 @@ int main(int argc, char * argv[])
     }
     Mix_Init( 0 );
 
-    if (!loadsample("data/kick.wav", 0) ||
-        !loadsample("data/hihatclosed.wav", 1) ||
-        !loadsample("data/cowbell.wav", 2) ||
-        !loadsample("data/hahatopen.wav", 3) ||
-        !loadsample("data/snare.wav", 4) ||
-        !loadsample("data/midtom.wav", 5) ||
-        !loadsample("data/lotom.wav", 6) ||
-        !loadsample("data/clap.wav", 7) ||
-        !loadsample("data/kick2.wav", 8) ||
-        !loadsample("data/bounce.wav", 9) ||
-        !loadsample("data/bass.wav", 10) ||
-        !loadsample("data/robot.wav", 11) )
+    if (!loadsample(datapath, "data/kick.wav", 0) ||
+        !loadsample(datapath, "data/hihatclosed.wav", 1) ||
+        !loadsample(datapath, "data/cowbell.wav", 2) ||
+        !loadsample(datapath, "data/hahatopen.wav", 3) ||
+        !loadsample(datapath, "data/snare.wav", 4) ||
+        !loadsample(datapath, "data/midtom.wav", 5) ||
+        !loadsample(datapath, "data/lotom.wav", 6) ||
+        !loadsample(datapath, "data/clap.wav", 7) ||
+        !loadsample(datapath, "data/kick2.wav", 8) ||
+        !loadsample(datapath, "data/bounce.wav", 9) ||
+        !loadsample(datapath, "data/bass.wav", 10) ||
+        !loadsample(datapath, "data/robot.wav", 11) )
     {
         return -3;
     }

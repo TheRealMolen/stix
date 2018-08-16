@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 #include "text.h"
 
@@ -40,9 +38,10 @@ void print_font_table()
 }
 
 
-bool init_text()
+bool init_text(const string& path)
 {
-    font_surface = SDL_LoadBMP("data/font.bmp");
+    string filename = path + "data/font.bmp";
+    font_surface = SDL_LoadBMP(filename.c_str());
     if (!font_surface)
     {
         cout << "couldn't load font: " << SDL_GetError() << endl;
@@ -66,7 +65,7 @@ bool init_text()
 
 void draw_char(char c, int x, int y, SDL_Surface* screen)
 {
-    if (c >= num_chars || font_sprites[c] < 0)
+    if (c < 0 || font_sprites[c] < 0)
         return;
 
     int32_t sprite = font_sprites[c];

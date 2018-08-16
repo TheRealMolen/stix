@@ -6,7 +6,7 @@
 using namespace std;
 
 
-bool init_text();
+bool init_text(const string& path);
 
 void draw_char(char c, int x, int y, SDL_Surface* screen);
 
